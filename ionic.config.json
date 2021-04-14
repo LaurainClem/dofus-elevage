@@ -1,0 +1,7 @@
+{
+  "name": "dofelevage",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
