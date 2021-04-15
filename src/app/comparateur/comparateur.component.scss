@@ -1,0 +1,42 @@
+@import '../../theme/colors.scss';
+
+ion-label {
+	font-weight: 600;
+	font-size: 0.8rem;
+}
+
+ion-chip {
+	height: 25px;
+}
+
+.card-item {
+	box-sizing: border-box;
+	box-shadow: 0px 1px 5px 3px rgba(0, 0, 0, 0.25);
+	border-radius: 5px;
+	padding: 5px;
+	height: 100px;
+}
+
+.items-collection {
+	margin-top: 20px;
+}
+
+.item-title {
+	color: $grey1;
+	font-size: 0.7rem;
+	font-weight: 900;
+	text-align: center;
+}
+
+.attributes-item {
+	font-size: 0.6rem;
+	position: absolute;
+	bottom: 5px;
+	text-align: center;
+	width: 80%;
+	color: $grey2;
+}
+
+ion-chip {
+	color: white;
+}
