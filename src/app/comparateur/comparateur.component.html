@@ -3,7 +3,7 @@
 	<ion-grid>
 		<ion-row>
 			<ion-col>
-				<ion-searchbar></ion-searchbar>
+				<ion-searchbar (ionChange)="updateSearchedItem($event)"></ion-searchbar>
 			</ion-col>
 		</ion-row>
 		<ion-row class="ion-justify-content-center">
@@ -16,19 +16,27 @@
 			</ion-chip>
 		</ion-row>
 		<ion-row class="items-collection">
-			<ion-col size="4" *ngFor="let item of objectsService.items">
-				<div
-					(click)="add(item)"
-					class="card-item"
-					[ngStyle]="{ border: item.checked ? '2px solid #FF7A00' : '' }"
-				>
-					<p class="item-title">{{ item.label }}</p>
-					<p class="attributes-item">
-						<span class="attribute-item">Efficacité:</span> {{ item.efficiency }} <br />
-						<span class="attribute-item">Durabilité:</span> {{ item.utilisations }}
-					</p>
-				</div>
-			</ion-col>
+			<ng-container *ngIf="getFilteredList().length > 0">
+				<ion-col size="4" *ngFor="let item of getFilteredList()">
+					<div
+						(click)="add(item)"
+						class="card-item"
+						[ngStyle]="{ border: item.checked ? '2px solid #FF7A00' : '' }"
+					>
+						<p class="item-title">{{ item.label }}</p>
+						<p class="attributes-item">
+							<span class="attribute-item">Efficacité:</span> {{ item.efficiency }} <br />
+							<span class="attribute-item">Durabilité:</span> {{ item.utilisations }}
+						</p>
+					</div>
+				</ion-col>
+			</ng-container>
+			<ng-container *ngIf="getFilteredList().length === 0">
+				<ion-col size="8" class="notFoundBox">
+					<ion-img class="notFoundIcon" src="../../assets/notFound.svg"></ion-img>
+					<p>Ooops ! Tu n’as aucun objet d’elevage dans le comparateur.</p>
+				</ion-col>
+			</ng-container>
 		</ion-row>
 	</ion-grid>
 </ion-content>

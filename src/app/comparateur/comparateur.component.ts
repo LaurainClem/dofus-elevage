@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FarmingItem } from '../models/farmingItem.model';
-import { ObjectsService } from '../services/objects.service';
+import { FarmingIemsService } from '../services/farmingItems.services';
 
 class Filter {
-	label: string;
+	label: 'Tous' | 'Mangeoire' | 'Abreuvoir' | 'Caresseur' | 'Baffeur' | 'Dragofesse' | 'Foudroyeur';
 	active: boolean;
 }
 
@@ -23,7 +23,9 @@ export class ComparateurComponent implements OnInit {
 		{ label: 'Foudroyeur', active: false },
 	];
 
-	constructor(public objectsService: ObjectsService) {}
+	searchedItem: string;
+
+	constructor(public farmingItemsService: FarmingIemsService) {}
 
 	ngOnInit() {}
 
@@ -35,7 +37,42 @@ export class ComparateurComponent implements OnInit {
 
 	add(item: FarmingItem): void {
 		item.checked = !item.checked;
+		this.farmingItemsService.save();
 	}
 
-	filter(): void {}
+	getFilteredList(): FarmingItem[] {
+		if (this.searchedItem && this.searchedItem !== '') {
+			return this.getFilteredListByName();
+		} else {
+			return this.getFilteredListByTag();
+		}
+	}
+
+	getFilteredListByName(): FarmingItem[] {
+		this.changeFilter(this.filters[0]);
+
+		return this.farmingItemsService.items.filter((item) =>
+			item.label.toLowerCase().startsWith(this.searchedItem.toLowerCase()),
+		);
+	}
+
+	getFilteredListByTag(): FarmingItem[] {
+		const filterSelected = this.filters.find((filter) => filter.active === true);
+		if (filterSelected.label === 'Tous') {
+			return this.farmingItemsService.items;
+		}
+
+		const farmingItemsFiltered = [];
+		this.farmingItemsService.items.forEach((item) => {
+			if (item.type === filterSelected.label) {
+				farmingItemsFiltered.push(item);
+			}
+		});
+
+		return farmingItemsFiltered;
+	}
+
+	updateSearchedItem(event) {
+		this.searchedItem = event.detail.value;
+	}
 }

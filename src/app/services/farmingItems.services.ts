@@ -1,10 +1,29 @@
 import { Injectable } from '@angular/core';
 import { FarmingItem } from '../models/farmingItem.model';
+import { Storage } from '@ionic/storage-angular';
 
 @Injectable({
 	providedIn: 'root',
 })
-export class ObjectsService {
+export class FarmingIemsService {
+	private _storage: Storage | null = null;
+
+	constructor(private readonly storage: Storage) {
+		this.init();
+	}
+
+	async init() {
+		const storage = await this.storage.create();
+		this._storage = storage;
+		if (this._storage.get('farmingItem')) {
+			this.items = await this._storage.get('farmingItem');
+		}
+	}
+
+	save(): void {
+		this._storage?.set('farmingItem', this.items);
+	}
+
 	public items: FarmingItem[] = [
 		{
 			type: 'Dragofesse',
@@ -601,6 +620,4 @@ export class ObjectsService {
 			utilisations: 5000,
 		},
 	];
-
-	constructor() {}
 }

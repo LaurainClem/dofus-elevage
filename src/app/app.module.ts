@@ -8,11 +8,12 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ComparateurComponent } from './comparateur/comparateur.component';
 import { TopbarComponent } from './topbar/topbar.component';
+import { IonicStorageModule } from '@ionic/storage-angular';
 
 @NgModule({
 	declarations: [AppComponent, ComparateurComponent, TopbarComponent],
 	entryComponents: [],
-	imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
+	imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, IonicStorageModule.forRoot()],
 	providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
 	bootstrap: [AppComponent],
 })
