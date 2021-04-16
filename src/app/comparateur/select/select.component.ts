@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FarmingItem } from '../models/farmingItem.model';
-import { FarmingIemsService } from '../services/farmingItems.services';
+import { Router } from '@angular/router';
+import { FarmingItem } from '../../models/farmingItem.model';
+import { FarmingIemsService } from '../../services/farmingItems.services';
 
 class Filter {
 	label: 'Tous' | 'Mangeoire' | 'Abreuvoir' | 'Caresseur' | 'Baffeur' | 'Dragofesse' | 'Foudroyeur';
@@ -9,10 +10,10 @@ class Filter {
 
 @Component({
 	selector: 'app-comparateur',
-	templateUrl: './comparateur.component.html',
-	styleUrls: ['./comparateur.component.scss'],
+	templateUrl: './select.component.html',
+	styleUrls: ['./select.component.scss'],
 })
-export class ComparateurComponent implements OnInit {
+export class SelectComponent implements OnInit {
 	filters: Filter[] = [
 		{ label: 'Tous', active: true },
 		{ label: 'Mangeoire', active: false },
@@ -25,7 +26,7 @@ export class ComparateurComponent implements OnInit {
 
 	searchedItem: string;
 
-	constructor(public farmingItemsService: FarmingIemsService) {}
+	constructor(public farmingItemsService: FarmingIemsService, private readonly router: Router) {}
 
 	ngOnInit() {}
 
@@ -74,5 +75,9 @@ export class ComparateurComponent implements OnInit {
 
 	updateSearchedItem(event) {
 		this.searchedItem = event.detail.value;
+	}
+
+	goToResult(): void {
+		this.router.navigate(['comparateur', 'results']);
 	}
 }

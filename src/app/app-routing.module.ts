@@ -1,16 +1,21 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { ComparateurComponent } from './comparateur/comparateur.component';
+import { ResultsComponent } from './comparateur/results/results.component';
+import { SelectComponent } from './comparateur/select/select.component';
 
 const routes: Routes = [
 	{
 		path: '',
-		redirectTo: 'comparateur',
+		redirectTo: 'comparateur/select',
 		pathMatch: 'full',
 	},
 	{
-		path: 'comparateur',
-		component: ComparateurComponent,
+		path: 'comparateur/select',
+		component: SelectComponent,
+	},
+	{
+		path: 'comparateur/results',
+		component: ResultsComponent,
 	},
 ];
 
